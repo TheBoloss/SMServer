@@ -1,5 +1,5 @@
 import OpenAI from "openai";
-import { serverLog } from "./Logging.ts";
+import { serverLog } from "./Logging.js";
 
 export const GetLlmAnswer = async (prompt: string): Promise<string | null> => {
   if (!process.env.OPENROUTER_API_KEY) return "";

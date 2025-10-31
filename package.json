@@ -1,7 +1,9 @@
 {
   "dependencies": {
+    "dotenv": "^17.2.3",
     "huawei-lte-api": "^0.1.1",
     "openai": "^6.7.0",
+    "pm2": "^6.0.13",
     "yaml": "^2.8.1"
   },
   "name": "smserver",
@@ -10,12 +12,21 @@
   "main": "src/server.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node --env-file .env src/server.ts"
+    "build": "tsc",
+    "start": "npm run build && node dist/server.js",
+    "pm2:start": "npm run build && pm2 start ecosystem.config.cjs",
+    "pm2:stop": "pm2 stop ecosystem.config.cjs",
+    "pm2:restart": "npm run build && pm2 restart ecosystem.config.cjs",
+    "pm2:logs": "pm2 logs smserver",
+    "pm2:monitor": "pm2 monit smserver"
   },
   "author": "",
   "license": "ISC",
   "type": "module",
   "devDependencies": {
-    "@types/node": "^24.9.2"
+    "@types/node": "^24.9.2",
+    "@types/tough-cookie": "^4.0.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
   }
 }

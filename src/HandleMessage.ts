@@ -1,6 +1,7 @@
-import { GetLlmAnswer } from "./LlmHandler.ts";
-import { serverLog } from "./Logging.ts";
-import { SendMessage } from "./SendMessage.ts";
+import { ConfigFile, Message } from "./Types.js";
+import { GetLlmAnswer } from "./LlmHandler.js";
+import { serverLog } from "./Logging.js";
+import { SendMessage } from "./SendMessage.js";
 import fs from "fs";
 import yaml from "yaml";
 

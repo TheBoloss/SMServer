@@ -1,5 +1,7 @@
-import { Connection, Device, Sms } from "huawei-lte-api";
-import { serverLog } from "./Logging.ts";
+import { Connection } from "huawei-lte-api";
+import { Device } from "huawei-lte-api/dist/api/Device.js";
+import { Sms } from "huawei-lte-api/dist/api/Sms.js";
+import { serverLog } from "./Logging.js";
 
 export const SendMessage = (text: string, phone: string) => {
   if (!process.env.CONNECTION_URL) return;
