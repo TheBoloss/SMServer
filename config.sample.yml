@@ -1,0 +1,7 @@
+config:
+  enable_whitelist: false
+  whitelist:
+    - "+33612345678"
+    - "+33612345679"
+  admin_list:
+    - "+33612345678"
