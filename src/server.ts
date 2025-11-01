@@ -7,9 +7,13 @@ import { exit } from "process";
 import { Message } from "./Types.js";
 
 import dotenv from "dotenv";
+import { GetWeather } from "./WeatherHandler.js";
+import { GetShortenedUrl } from "./UrlShortenerHandler.js";
 dotenv.config({ path: ".env" });
 
 if (!process.env.CONNECTION_URL) exit();
+
+// console.log(await GetShortenedUrl("https://xn--9ca.info/"));
 
 const connection = new Connection(process.env.CONNECTION_URL, 15000);
 
