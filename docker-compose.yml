@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  smserver:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: smserver
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./logs:/app/logs
+      - ./config.yml:/app/config.yml:ro
+    ports:
+      - "3000:3000"
+    # Uncomment to use .env file for environment variables
+    # env_file:
+    #   - .env
