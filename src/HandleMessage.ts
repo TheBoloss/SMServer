@@ -14,7 +14,7 @@ export default async function HandleMessage(message: Message) {
   serverLog(
     `📥 Incoming SMS from ${message.Phone}: [#${
       message.Index
-    }] ${message.Content.trim().replace("\n", " ")}`
+    }] ${message.Content.trim().replace("\n", " ")}`,
   );
 
   if (config.enable_whitelist && !config.whitelist.includes(message.Phone)) {
@@ -42,6 +42,7 @@ export default async function HandleMessage(message: Message) {
       case "llm":
       case "ai":
       case "ia":
+      case "ask":
         const prompt = message.Content.trim().split(" ").slice(1).join(" ");
 
         if (prompt != "") {
