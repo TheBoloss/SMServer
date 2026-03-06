@@ -45,6 +45,6 @@ export const GetLlmAnswer = async (prompt: string): Promise<string | null> => {
     }
     serverLog(`❌ OpenAI API Error: ${msg}`);
     console.error("openai error details", error);
-    return "";
+    return msg;
   }
 };
