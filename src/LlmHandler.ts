@@ -19,15 +19,15 @@ export const GetLlmAnswer = async (prompt: string): Promise<string | null> => {
   try {
     // console.log("c");
     const completion = await openai.chat.completions.create({
-      model: "mistralai/mistral-small-3.2-24b-instruct:free",
+      model: "openai/gpt-oss-20b:free",
       messages: [
         {
           role: "system",
           content: `
-        You are a helpful and concise assistant.
-        Always write answers in the language of the user.
-        The user talks with you by SMS, so don't write too long answers and don't write emojis at all.
-      `,
+          You are a helpful and concise assistant.
+          Always write answers in the language of the user.
+          The user talks with you by SMS, so write short answers, don't use emojis and text formatting at all.
+        `,
         },
         {
           role: "user",
@@ -38,9 +38,13 @@ export const GetLlmAnswer = async (prompt: string): Promise<string | null> => {
     // console.log("d");
 
     return completion.choices[0].message.content;
-  } catch (error) {
-    // console.log("e");
-    serverLog(`❌ OpenAI API Error: ${error}`);
+  } catch (error: any) {
+    let msg = String(error);
+    if (error.response) {
+      msg = `${error.response.status} ${JSON.stringify(error.response.data)}`;
+    }
+    serverLog(`❌ OpenAI API Error: ${msg}`);
+    console.error("openai error details", error);
     return "";
   }
 };
