@@ -46,7 +46,7 @@ export default async function HandleMessage(message: Message) {
         const prompt = message.Content.trim().split(" ").slice(1).join(" ");
 
         if (prompt != "") {
-          const temp = await GetLlmAnswer(prompt);
+          const temp = await GetLlmAnswer(prompt, isAdmin);
           response = temp != null ? temp : "";
         } else response = "Usage :\ngpt <your request>";
         break;

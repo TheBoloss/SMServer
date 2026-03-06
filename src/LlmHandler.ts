@@ -1,7 +1,10 @@
 import OpenAI from "openai";
 import { serverLog } from "./Logging.js";
 
-export const GetLlmAnswer = async (prompt: string): Promise<string | null> => {
+export const GetLlmAnswer = async (
+  prompt: string,
+  isAdmin: boolean,
+): Promise<string | null> => {
   if (!process.env.OPENROUTER_API_KEY) return "";
   // console.log("a");
   serverLog(`Waiting for OpenAI API response... [${prompt}]`);
@@ -45,6 +48,6 @@ export const GetLlmAnswer = async (prompt: string): Promise<string | null> => {
     }
     serverLog(`❌ OpenAI API Error: ${msg}`);
     console.error("openai error details", error);
-    return msg;
+    return isAdmin ? msg : "";
   }
 };
