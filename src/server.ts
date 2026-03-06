@@ -11,7 +11,13 @@ import { GetWeather } from "./WeatherHandler.js";
 import { GetShortenedUrl } from "./UrlShortenerHandler.js";
 dotenv.config({ path: ".env" });
 
-if (!process.env.CONNECTION_URL) exit();
+if (!process.env.CONNECTION_URL) {
+  console.error(
+    "ERROR: CONNECTION_URL is not defined. Set it in your .env or environment.",
+  );
+  // exit with non-zero status so Docker doesn't treat this as a clean shutdown
+  process.exit(1);
+}
 
 // console.log(await GetShortenedUrl("https://xn--9ca.info/"));
 
@@ -20,7 +26,7 @@ const connection = new Connection(process.env.CONNECTION_URL, 15000);
 console.log(
   `\n \x1b[32m╔═══════════════════════╗
  ║  \x1b[0m\x1b[1mWelcome to SMServer  \x1b[32m║
- ╚═══════════════════════╝\n\x1b[0m`
+ ╚═══════════════════════╝\n\x1b[0m`,
 );
 console.log("Server is starting, please wait.\n");
 serverLog("Connecting to modem...\n");
@@ -73,7 +79,7 @@ connection.ready.then(async () => {
   async function pollForNewSMS() {
     const messages = await fetchMessages();
     const newMessages = messages.filter(
-      (msg) => Number(msg.Index) > lastKnownIndex
+      (msg) => Number(msg.Index) > lastKnownIndex,
     );
 
     if (newMessages.length > 0) {

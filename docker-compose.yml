@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   smserver:
     build:
@@ -9,11 +7,10 @@ services:
     restart: unless-stopped
     environment:
       - NODE_ENV=production
+    env_file:
+      - .env        # load CONNECTION_URL, API keys, etc.
     volumes:
       - ./logs:/app/logs
       - ./config.yml:/app/config.yml:ro
     ports:
       - "3000:3000"
-    # Uncomment to use .env file for environment variables
-    # env_file:
-    #   - .env
